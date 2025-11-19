@@ -1,4 +1,5 @@
 import { Brain, Database, Bot, Activity, FileText, Webhook } from 'lucide-react'
+import { motion } from 'framer-motion'
 
 const features = [
   {
@@ -44,14 +45,21 @@ export default function Features() {
         </div>
 
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map(({ icon: Icon, title, desc }) => (
-            <div key={title} className="group relative rounded-2xl border border-[hsl(222,20%,15%)] bg-[hsla(222,20%,8%,0.6)] backdrop-blur-sm p-6 transition hover:border-[hsl(155,85%,55%)]/50">
+          {features.map(({ icon: Icon, title, desc }, i) => (
+            <motion.div
+              key={title}
+              initial={{ opacity: 0, y: 24, scale: 0.98, filter: 'blur(6px)' }}
+              whileInView={{ opacity: 1, y: 0, scale: 1, filter: 'blur(0px)' }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: i * 0.06 }}
+              className="group relative rounded-2xl border border-[hsl(222,20%,15%)] bg-[hsla(222,20%,8%,0.6)] backdrop-blur-sm p-6 transition hover:border-[hsl(155,85%,55%)]/50"
+            >
               <div className="w-10 h-10 rounded-xl bg-[hsl(155,85%,55%)]/10 border border-[hsl(155,85%,55%)]/30 text-[hsl(155,85%,55%)] flex items-center justify-center">
                 <Icon size={18} />
               </div>
               <h3 className="mt-4 text-[hsl(210,15%,95%)] font-semibold">{title}</h3>
               <p className="mt-2 text-sm text-[hsl(210,15%,95%)]/70">{desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

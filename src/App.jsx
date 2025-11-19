@@ -1,6 +1,10 @@
 import Header from './components/Header'
 import Hero from './components/Hero'
+import SubHero from './components/SubHero'
 import Features from './components/Features'
+import AdvancedStrip from './components/AdvancedStrip'
+import PipelineSteps from './components/PipelineSteps'
+import Trust from './components/Trust'
 import HowItWorks from './components/HowItWorks'
 import Footer from './components/Footer'
 
@@ -10,7 +14,11 @@ function App() {
       <Header />
       <main>
         <Hero />
+        <SubHero />
+        <Trust />
         <Features />
+        <AdvancedStrip />
+        <PipelineSteps />
         <HowItWorks />
       </main>
       <Footer />

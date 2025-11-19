@@ -1,13 +1,24 @@
 import Spline from '@splinetool/react-spline'
+import { motion, useScroll, useTransform } from 'framer-motion'
+import Particles from './Particles'
 
 export default function Hero() {
+  const { scrollY } = useScroll()
+  const y = useTransform(scrollY, [0, 600], [0, -80])
+  const vignette = useTransform(scrollY, [0, 300], [0.65, 0.85])
+
   return (
-    <section className="relative min-h-[90vh] flex items-center overflow-hidden bg-[hsl(222,47%,2%)]">
-      <div className="absolute inset-0">
+    <section className="relative min-h-[100vh] flex items-center overflow-hidden bg-black">
+      <motion.div className="absolute inset-0" style={{ y }}>
         <Spline scene="https://prod.spline.design/VyGeZv58yuk8j7Yy/scene.splinecode" style={{ width: '100%', height: '100%' }} />
+      </motion.div>
+
+      <div className="pointer-events-none absolute inset-0">
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,217,98,0.08),transparent_60%)]" />
+        <motion.div style={{ opacity: vignette }} className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,0,0,0.6),rgba(0,0,0,0.95))]" />
       </div>
 
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(0,217,98,0.08),transparent_60%)]" />
+      <Particles className="z-0" />
 
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 pt-28 grid lg:grid-cols-2 gap-10">
         <div className="text-left">
@@ -22,7 +33,7 @@ export default function Hero() {
             Connect any data source. Our AI automatically structures your data and builds intelligent knowledge bases for instant insights.
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <a href="#signup" className="px-6 py-3 rounded-xl bg-[hsl(155,85%,55%)] text-black font-medium shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:brightness-110 transition">
+            <a href="/signup" className="px-6 py-3 rounded-xl bg-[hsl(155,85%,55%)] text-black font-medium shadow-[0_4px_20px_rgba(0,0,0,0.08)] hover:brightness-110 transition border border-[hsl(155,85%,55%)]/60">
               Start Free Trial
             </a>
             <a href="#demo" className="px-6 py-3 rounded-xl border border-[hsl(222,20%,15%)] text-[hsl(210,15%,95%)]/80 hover:text-[hsl(210,15%,95%)] transition">

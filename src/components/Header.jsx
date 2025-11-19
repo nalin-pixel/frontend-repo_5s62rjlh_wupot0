@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Menu, X } from 'lucide-react'
+import { motion, useScroll, useTransform } from 'framer-motion'
 
 const navItems = [
   { label: 'Features', href: '#features' },
@@ -11,6 +12,8 @@ const navItems = [
 export default function Header() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
+  const { scrollY } = useScroll()
+  const bgOpacity = useTransform(scrollY, [0, 200], [0.0, 0.7])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 10)
@@ -19,7 +22,11 @@ export default function Header() {
   }, [])
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all ${scrolled ? 'backdrop-blur-sm bg-[hsla(222,20%,8%,0.6)] border-b border-[hsl(222,20%,15%)]' : 'bg-transparent'}`}>
+    <motion.header
+      className={`fixed top-0 inset-x-0 z-50 transition-all border-b ${scrolled ? 'backdrop-blur-sm border-[hsl(222,20%,15%)]' : 'border-transparent'}`}
+      style={{ backgroundColor: 'hsla(222,20%,8%,0)', backdropFilter: 'blur(6px)', backgroundImage: 'none', opacity: 1 }}
+    >
+      <motion.div style={{ backgroundColor: 'hsla(222,20%,8%,1)', opacity: bgOpacity }} className="absolute inset-0 -z-10" />
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <a href="/" className="flex items-center gap-3 group">
           <div className="w-9 h-9 rounded-xl bg-[hsl(155,85%,55%)]/10 border border-[hsl(155,85%,55%)]/30 flex items-center justify-center shadow-[0_4px_20px_rgba(0,0,0,0.08)]">
@@ -61,6 +68,6 @@ export default function Header() {
           </div>
         </div>
       )}
-    </header>
+    </motion.header>
   )
 }
